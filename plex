@@ -107,7 +107,7 @@ def get_playlist_info(account, server_name, playlist_title):
         base_url = item._server._baseurl
         media_url = item.media[0].parts[0].key
         token = item._server._token
-        url = f"{base_url}{media_url}?X-Plex-Token={token}&download=1"
+        url = f"{base_url}{media_url}?X-Plex-Token={token}&download=1;{item.duration}"
         duration = item.duration
         file_name = item.media[0].parts[0].file.split("/")[-1]
         item_info.append((url, file_name, duration))
@@ -266,7 +266,7 @@ def playlist_cli(m3u):
     # display media Titles
     click.echo("0. Display all links")
     for index, item in enumerate(media_info, start=1):
-        click.echo(f"{index}. {item[1]}")
+        click.echo(f"{index}. {item[1]}. {item[2]}.")
 
     # prompt user for media selection,
     media_index = click.prompt(
